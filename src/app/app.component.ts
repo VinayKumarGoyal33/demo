@@ -1,17 +1,18 @@
 import { Component ,OnInit} from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { retry, catchError, map } from 'rxjs/operators'
-
+// import 'rxjs/add/observable/interval';
 import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   title = 'demo';
   dataValue:any=[]
-  headElements=['Title','Url','Created_at','Author']
+  dataValue1:any=[];
+  headElements=['Title','Url','Created_at','Author'];
   apiUrl="https://hn.algolia.com/api/v1"
   constructor( private http:HttpClient){
     
@@ -19,11 +20,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(){
-   
+    
   }
 
   getUsers() {
-    debugger
+    // debugger
     return this.http.get<any>(this.apiUrl + `/search_by_date?tags=story`)
       .pipe(
         // 
@@ -37,7 +38,7 @@ export class AppComponent implements OnInit {
     .pipe(first())
       .subscribe(
         data => {
-          debugger
+          // debugger
           this.dataValue=data.hits
          
         },
@@ -48,14 +49,17 @@ export class AppComponent implements OnInit {
   }
 
   getUserDetails(id){
+    // debugger
     this.getUsers()
     .pipe(first())
       .subscribe(
         data => {
-          debugger
-          for (let i=0; i<=data.hits.length;i++){
+          // debugger
+          this.dataValue1=data.hits;
+          for (let i=0; i<=this.dataValue1.length-1;i++){
             if(id == i){
-              this.dataValue=data.hits
+              // debugger
+              this.dataValue1=data.hits;
             }
           }
           // this.dataValue=data.hits

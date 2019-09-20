@@ -10,59 +10,51 @@
       </tr>
     </thead>
     <tbody >
-
-      <tr *ngFor="let data of dataValue | filter:searchText" data-toggle="modal" data-target="#myModal">
-        <td>{{data.title}}</td>
-        <td>{{data.url}}</td>
-        <td>{{data.created_at}}</td>
-        <td>{{data.author}}</td>
-      </tr>
+      <div  *ngFor="let data of dataValue | filter:searchText; let i=index;" (click)="getUserDetails(i)">
+        <tr  (click)="basicModal2.show()" >
+          <td>{{data.title}}</td>
+          <!-- <td>{{i}}</td> -->
+          <td>{{data.url}}</td>
+          <td>{{data.created_at}}</td>
+          <td>{{data.author}}</td>
+        </tr>
+      </div>
+        
+      
+      
     </tbody>
   </table>
 </div>
 
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-    Open modal
-  </button>
+
   
-  <!-- The Modal -->
-  <div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-  
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+ 
+
+  <div mdbModal #basicModal2="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="container">
+          <h4 class="modal-title w-100 lable" id="myModalLabel" style="font-size:20px;">Record</h4>
+          
         </div>
-  
-        <!-- Modal body -->
-        <div class="modal-body">
-             <table > 
-                <thead>
-                  <tr>
-                    <th *ngFor="let head of headElements">{{head}} </th>
-                  </tr>
-                </thead>
-                <tbody >
-            
-                  <tr *ngFor="let data of dataValue; let i=index " data-toggle="modal" data-target="#myModal">
-                    <td>{{data.title}}</td>
-                    <td>{{data.url}}</td>
-                    <td>{{data.created_at}}</td>
-                    <td>{{data.author}}</td>
-                  </tr>
-                </tbody>
-              </table> -->
-              <!-- {{data.title}} -->
-            </div>
-  
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <div class="modal-body">
+        <div  *ngFor="let data of dataValue1">
+          
+          <p>{{data.title}}</p>
+        <p>{{data.url}}</p>
+            <td>{{data.created_at}}</td>
+            <td>{{data.author}}</td>
+          
         </div>
-  
+          
+      </div>
+      <div>
+        <button type="button" mdbBtn color="primary" (click)="basicModal2.hide()" mdbWavesEffect>Primary</button>
       </div>
     </div>
   </div>
+</div>
